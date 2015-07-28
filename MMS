@@ -1,0 +1,1560 @@
+/*
+
+Name           :  The Marketing Management System
+Author         :  Pankaj Kankonkar
+Descriptions   :  This is the main control of marketing management system
+
+Version History
+---------------
+
+Version			Date			Reason
+-------			----------		------------------------------------
+0.1				16/09/2013      Initial Coding
+0.1				13/10/2013		Designing of File Structure
+0.1				13/11/2013		Conding Complete
+
+
+*/
+
+#include <stdio.h>
+#include <conio.h>
+#include <dos.h>
+#include <string.h>
+
+
+/*
+
+	Defining prototype of functions which prints various screens
+
+*/
+
+void ptsheader();
+int  ptsmain();
+int  ptsmas();
+int  ptsinvoice();
+int  ptspro();
+int  ptsodrinvo();
+int  ptscust();
+int  ptsreport();
+int  ptssave();
+
+/*
+
+	Defining prototype of functions that controls the flow
+
+*/
+
+int cntlmain(int);
+int cntlmas(int);
+int cntlpro(int);
+int cntlcust(int);
+int cntlinvoice(int);
+
+int addpro(int);
+int addcust(int);
+int addinvo(int);
+int mnginvo(int);
+
+
+
+int main()
+{
+	int opt;
+	opt=ptsmain();
+	cntlmain(opt);
+
+	getch();
+	return 0;
+
+}
+
+void ptsheader() //display header title
+{
+	printf("\n================================================================================");
+	printf("\n\t\t\t MICROMAX INSTRUMENT PVT. LTD.");
+	printf("\n================================================================================");
+	printf("\n\t\t   =======================================");
+	printf("\n\t\t\t Marketing Management System");
+	printf("\n\t\t   =======================================");
+
+
+}
+
+int ptsmain()// display main menu
+{
+	int opt;
+	clrscr();
+	ptsheader();
+	printf("\n\n\t\t\t     ____Main Menu____");
+	printf("\n\n\t\t\t\t 1: Master Management");
+	printf("\n\t\t\t\t 2: Invoices");
+	printf("\n\t\t\t\t 3: Reports");
+	printf("\n\t\t\t\t 4: Exit");
+	printf("\n\n\n\t\t\t    Enter Your Option... ");
+	scanf("%d", &opt);
+	return opt;
+
+}
+
+int ptsmas()  // display master menu
+{
+	int opt;
+	clrscr();
+	ptsheader();
+
+	printf("\n\n\t\t\t ____Master Management____");
+	printf("\n\n\t\t\t\t 1:Product");
+	printf("\n\t\t\t\t 2:Customer");
+	printf("\n\t\t\t\t 3:Main Menu");
+	printf("\n\n\n\t\t\t\ Enter Your Option...");
+	scanf("%d",&opt);
+	return opt;
+}
+
+int ptsinvoice()  // display invoice menu
+{
+	int opt;
+	clrscr();
+	ptsheader();
+	printf("\n\n\n\t\t\t     ____Invoice____");
+	printf("\n\n\t\t\t\t 1:Create Invoice");
+	printf("\n\t\t\t\t 2:ManageInvoice");
+	printf("\n\t\t\t\t 3:Main Menu");
+	printf("\n\n\t\t\t Enter Your Option : ");
+	scanf("%d",&opt);
+	return opt;
+}
+
+int ptspro() //display product menu
+{
+	int opt;
+	clrscr();
+	ptsheader();
+	printf("\n\n\n\t\t\t____Product Master____");
+	printf("\n\n\n\t\t\t 1: Add Product Details");
+	printf("\n\n\n\t\t\t 2: Modify Product Details");
+	printf("\n\n\n\t\t\t 3: Delete Product Details");
+	printf("\n\n\n\t\t\t 4: Go Back");
+	printf("\n\n\n\t\t\t Enter Your Option...");
+	scanf("%d",&opt);
+	return opt;
+}
+
+int ptscust()   //display customers menu
+{
+	int opt;
+	clrscr();
+	ptsheader();
+	printf("\n\n\n\t\t\t  ____Customer Master____");
+	printf("\n\n\n\t\t\t 1: Add Customer Details");
+	printf("\n\n\n\t\t\t 2: Modify Customer Details");
+	printf("\n\n\n\t\t\t 3: Delete Customer Details");
+	printf("\n\n\n\t\t\t 4: Go Back");
+	printf("\n\n\n\t\t\t Enter Your Option...");
+	scanf("%d",&opt);
+
+	return opt;
+}
+
+int ptsreport()
+{
+	clrscr();
+	ptsheader();
+	printf("\n\n\t\t\t      ____Monthly Reports____");
+	printf("\n\n\t\t\t 1: Sales Report");
+	printf("\n\t\t\t 2: Products Report");
+	printf("\n\t\t\t 3: Customer Report");
+	printf("\n\t\t\t 4: Main Menu");
+	printf("\n\n\t\t\t Enter Your Option...");
+	return 0;
+}
+
+int ptsodrinvo()// display order invoice menu
+{
+	int opt;
+	clrscr();
+	ptsheader();
+	printf("\n\n\n\t\t\t ____Order Invoice____");
+	printf("\n\n\n\t\t\t 1: Create Order Invoice");
+	printf("\n\n\n\t\t\t 2: Modify Order Invoice");
+	printf("\n\n\n\t\t\t 3: Go Back");
+	printf("\n\n\n\t\t\t Enter Your Option...");
+	scanf("%d",&opt);
+	return opt;
+
+}
+
+int ptssave()
+{
+	printf("Record Saved Successfully");
+
+	return 0;
+}
+
+
+int cntlmain(int opt) // control of main menu
+{
+	switch(opt)
+	{
+		case 1:
+				opt=ptsmas();
+				cntlmas(opt);
+				getch();
+				break;
+		case 2:
+				opt=ptsinvoice();
+				cntlinvoice(opt);
+				opt=ptsmain();
+				cntlmain(opt);
+				break;
+		case 3:
+				opt=ptsreport();
+				getch();
+				opt=ptsmain();
+				cntlmain(opt);
+				break;
+		case 4:
+				exit();
+	}
+  return 0;
+}
+
+
+int cntlmas(int opt) // control of master menu
+{
+
+	switch(opt)
+	{
+		case 1:
+
+				addpro(opt);
+				opt=ptsmas();
+				cntlmas(opt);
+				break;
+		case 2:
+				addcust(opt);
+				opt=ptsmas();
+				cntlmas(opt);
+				break;
+		case 3:
+				clrscr();
+				opt=ptsmain();
+				cntlmain(opt);
+	}
+
+return 0;
+}
+
+//not required
+int cntlpro(int opt)
+{
+	switch(opt)
+	{
+		case 1:
+				addpro(opt);
+				break;
+		case 2:
+				break;
+		case 3:
+				break;
+		case 4:
+				break;
+	}
+ return 0;
+}
+
+int cntlcust(int opt)  //not required
+{
+	switch(opt)
+	{
+		case 1:
+				addcust(opt);
+				break;
+		case 2:
+				break;
+		case 3:
+				break;
+		case 4:
+				break;
+	}
+ return 0;
+}
+
+int cntlinvoice(int opt)    //control of invoice
+{
+	switch(opt)
+	{
+		case 1:
+				addinvo(opt);
+				break;
+		case 2:
+				mnginvo(opt);
+				break;
+		case 3:
+				opt=ptsmain();
+				cntlmain(opt);
+				break;
+	}
+
+	return 0;
+}
+
+
+
+int addpro(opt)      // managing product details
+{
+	long int recsize,recsize2;
+	char save='y';
+	char choice=' ';
+	char procd[5];
+	FILE *fpro;
+	FILE *ftemp;
+	FILE *ftemp2;
+	FILE *fprot;
+	char ch;
+
+	struct pro
+	{
+		char pcode[10];
+		char pname[20];
+		float pprice;
+		int qty;
+	};
+	struct fprot
+	{
+		char pcode[10];
+		char pname[20];
+		float pprice;
+		int qty;
+	};
+
+	struct pro p1;
+	struct fprot pt1;
+
+	fpro=fopen("product2.txt","rb+");
+	fprot=fopen("product.txt","rb+");
+
+	if(fpro==NULL)
+	{
+		printf("File does not exits");
+	}
+
+	recsize=sizeof(p1);
+   //	recsize2=sizeof(pt1);
+	while(choice != 'E')
+	{
+		clrscr();
+		ptsheader();
+		printf("\n\nProduct Code      Product Name         Product Price		Quantity Avail.");
+		printf("\n==============================================================================");
+		rewind(fpro);
+		while(fread(&p1,recsize,1,fpro)==1)
+		{
+			printf("\n%-20s %-20s %8.2f		%d",p1.pcode,p1.pname,p1.pprice,p1.qty);
+		}
+		fflush(stdin);
+		gotoxy(6,23);
+		printf("A - Add | U - Update | D - Delete | E - Exit :  ");
+		gotoxy(55,23);
+		scanf("%c",&choice);
+		save='y';
+		if (choice=='A'|| choice=='a')        // adding product details
+		{
+			while(save=='y' || save=='Y')
+			{
+				clrscr();
+				ptsheader();
+				printf("\n\n\t\t\t      ____Add Product____");
+				gotoxy(20,14);
+				printf("   Code           : ");
+				gotoxy(20,16);
+				printf("   Name           : ");
+				gotoxy(20,18);
+				printf("   Price          : ");
+				gotoxy(20,20);
+				printf("   Quantity	     : ");
+
+				gotoxy(40,14);
+				fflush(stdin);
+				gets(p1.pcode);
+				fflush(stdin);
+				gotoxy(40,16);
+				gets(p1.pname);
+				fflush(stdin);
+				gotoxy(40,18);
+				scanf("%f",&p1.pprice);
+				fflush(stdin);
+				gotoxy(40,20);
+				scanf("%d",&p1.qty);
+
+				gotoxy(35,23);
+				printf("Save (Y/N) : ");
+				gotoxy(47,23);
+				save=getch();
+				//scanf("%c",&save);
+				if((save=='y' )||( save=='Y'))
+				{
+					fwrite(&p1,recsize,1,fpro);
+					fwrite(&p1,recsize,1,fprot);
+
+					gotoxy(35,24);
+					printf("Product Added...");
+					gotoxy(35,25);
+					printf("Add More Products (Y/N) ? : ");
+					gotoxy(52,25);
+					fflush(stdin);
+					save=getch();
+				}
+
+			}
+
+
+		}
+		else if(choice=='U'|| choice=='u')    // updating product details
+		{
+
+			gotoxy(30,47);
+			printf("Product Code : ");
+			fflush(stdin);
+			gets(procd);
+			fflush(stdin);
+			rewind(fpro);
+			while(1)
+			{
+				fread(&p1,recsize,1,fpro);
+
+				if (feof(fpro))
+				break;
+
+				if(strcmp(procd,p1.pcode)==0)
+				{
+
+					clrscr();
+					ptsheader();
+					printf("\n\n\n\t\t\t      ____Update Product____");
+					gotoxy(15,14);
+					printf("   Code           :%s ",p1.pcode);
+					gotoxy(15,16);
+					printf("   Name           :%s ",p1.pname);
+					gotoxy(15,18);
+					printf("   Price          :%-6.2f ",p1.pprice);
+					gotoxy(15,20);
+					printf("   Quantity       :%d ",p1.qty);
+
+					gotoxy(55,14);
+					fflush(stdin);
+					printf("%s",p1.pcode);
+					fflush(stdin);
+					gotoxy(55,16);
+					gets(p1.pname);
+					fflush(stdin);
+					gotoxy(55,18);
+					scanf("%f",&p1.pprice);
+					fflush(stdin);
+					gotoxy(55,20);
+					scanf("%d",&p1.qty);
+
+					gotoxy(35,23);
+					printf("Save (Y/N) : ");
+					gotoxy(47,23);
+					save=getch();
+					//scanf("%c",&save);
+					if((save=='y' )||( save=='Y'))
+					{
+						fseek(fpro,-recsize,SEEK_CUR);
+
+
+						fseek(fprot,-recsize,SEEK_CUR);
+						fwrite(&p1,recsize,1,fpro);
+						fwrite(&p1,recsize,1,fprot);
+
+
+					}
+					break;
+				}
+			}
+			fflush(stdin);
+
+		}
+		else if(choice=='D'|| choice=='d')     // deleting product details
+		{
+			gotoxy(30,47);
+			printf("Product Code : ");
+			fflush(stdin);
+			gets(procd);
+			fflush(stdin);
+			rewind(fpro);
+
+			ftemp=fopen("temp2.txt","wb+");
+			ftemp2=fopen("temp3.txt","wb+");
+
+			while(1)
+			{
+				fread(&p1,recsize,1,fpro);
+
+				if (feof(fpro))
+				break;
+
+				if(strcmp(procd,p1.pcode)!=0)
+				{
+					fwrite(&p1,recsize,1,ftemp);
+					fwrite(&p1,recsize,1,ftemp2);
+
+				}
+
+			}
+			fclose(fpro);
+			fclose(ftemp);
+			fclose(ftemp2);
+
+			remove("product.txt");
+			remove("product2.txt");
+			rename("temp3.txt","product2.txt");
+			rename("temp2.txt","product.txt");
+			fpro=fopen("product2.txt","rb+");
+			fprot=fopen("product.txt","rb+");
+		}
+		else
+		{
+			opt=ptsmas();
+			cntlmas(opt);
+		}
+			 fflush(stdin);
+	}
+
+	fclose(fpro);
+	fclose(fprot);
+	return opt;
+}
+
+int addcust(opt)    // managing customer details
+{
+	long int recsize;
+	char save='y';
+	char choice=' ';
+	char custcd[5];
+	FILE *fcust;
+	FILE *ftemp;
+	char ch;
+
+	struct cust
+	{
+		char cid[5];
+		char cname[20];
+		char chno[5];
+		char carea[10];
+		char ccity[10];
+		char cstate[10];
+		char cmobile[11];
+		char  ctel[12];
+	};
+
+	struct cust c1;
+
+	fcust=fopen("customer.txt","rb+");
+
+
+
+	if(fcust==NULL)
+	{
+		printf("File does not exits");
+	}
+
+	recsize=sizeof(c1);
+	while(choice != 'E')
+	{
+		clrscr();
+		ptsheader();
+		rewind(fcust);
+		printf("\n\tID		Name		Mobile		Telephone ");
+		printf("\n\t===============================================================");
+		while(fread(&c1,recsize,1,fcust)==1)
+		{
+			printf("\n\t%-15s %-15s %-17s %-15s",c1.cid,c1.cname,c1.cmobile,c1.ctel);
+		}
+		fflush(stdin);
+		gotoxy(5,23);
+		printf("A - Add | V - View | U - Update | D - Delete | E - Exit :  ");
+		scanf("%c",&choice);
+
+
+		if(choice=='A'|| choice=='a')     // adding customer details
+		{
+		clrscr();
+		ptsheader();
+			while(save=='y')
+			{
+				printf("\n\t\t\t      ____Add Customer____");
+				gotoxy(20,12);
+				printf("   ID                  : ");
+				gotoxy(20,13);
+				printf("   Name                : ");
+				gotoxy(20,14);
+				printf("                       Address \n");
+				gotoxy(20,15);
+				printf("   Block               : ");
+				gotoxy(20,16);
+				printf("   Area                : ");
+				gotoxy(20,17);
+				printf("   City                : ");
+				gotoxy(20,18);
+				printf("   State               : ");
+				gotoxy(20,19);
+				printf("   Mobile              : ");
+				gotoxy(20,20);
+				printf("   Telephone           : ");
+
+
+				gotoxy(45,12);
+				fflush(stdin);
+				gets(c1.cid);
+				gotoxy(45,13);
+				fflush(stdin);
+				gets(c1.cname);
+				gotoxy(45,15);
+				fflush(stdin);
+				gets(c1.chno);
+				gotoxy(45,16);
+				fflush(stdin);
+				gets(c1.carea);
+				gotoxy(45,17);
+				fflush(stdin);
+				gets(c1.ccity);
+				gotoxy(45,18);
+				fflush(stdin);
+				gets(c1.cstate);
+				gotoxy(45,19);
+				fflush(stdin);
+				gets(c1.cmobile);
+				gotoxy(45,20);
+				fflush(stdin);
+				gets(c1.ctel);
+				fflush(stdin);
+
+				fwrite(&c1,recsize,1,fcust);
+
+				gotoxy(40,48);
+				printf(" Save (Y/N) ?");
+				gotoxy(48,61);
+				save=getch();
+
+				if((save=='y' )||( save=='Y'))
+				{
+
+					gotoxy(40,46);
+					printf(" Record Saved");
+					gotoxy(40,48);
+					printf("\nAdd More Customers (Y/N) ?");
+					gotoxy(48,75);
+					save=getch();
+					if((save=='y') ||(save=='Y'))
+					continue;
+					else
+					break;
+				}
+
+
+			}
+
+		}
+		if(choice=='E'|| choice=='e')    // exit
+		{
+			opt=ptsmas();
+			cntlmas(opt);
+		}
+		if(choice=='D' || choice=='d')  //  deleting customer details
+		{
+			ftemp=fopen("ctemp.txt","wb+");
+
+			gotoxy(30,47);
+			printf("Customer ID : ");
+			fflush(stdin);
+			gets(custcd);
+			fflush(stdin);
+			rewind(fcust);
+
+			while(1)
+			{
+				fread(&c1,recsize,1,fcust);
+
+				if (feof(fcust))
+				break;
+
+				if(strcmp(custcd,c1.cid)!=0)
+				{
+					fwrite(&c1,recsize,1,ftemp);
+
+				}
+
+			}
+
+			fclose(ftemp);
+			remove("customer.txt");
+			rename("ctemp.txt","customer.txt");
+			fcust=fopen("customer.txt","rb+");
+			rewind(fcust);
+		}
+		if(choice=='V'|| choice=='v')    // view customer details
+		{
+			char cid[5];
+			printf("Customer ID : ");
+			scanf("%s",&cid);
+			rewind(fcust);
+			while(fread(&c1,recsize,1,fcust)==1)
+			{
+				if(feof(fcust))
+				break;
+				if(strcmp(cid,c1.cid)==0)
+				{
+					clrscr();
+					ptsheader();
+					printf("\n\t			Customer Details");
+					printf("\n\t====================================");
+					gotoxy(20,12);
+					printf("   ID                  : ");
+					gotoxy(20,13);
+					printf("   Name                : ");
+					gotoxy(20,14);
+					printf("                       Address \n");
+					gotoxy(20,15);
+					printf("   Block               : ");
+					gotoxy(20,16);
+					printf("   Area                : ");
+					gotoxy(20,17);
+					printf("   City                : ");
+					gotoxy(20,18);
+					printf("   State               : ");
+					gotoxy(20,19);
+					printf("   Mobile              : ");
+					gotoxy(20,20);
+					printf("   Telephone           : ");
+
+
+					gotoxy(45,12);
+					printf("%s",c1.cid);
+					gotoxy(45,13);
+					printf("%s",c1.cname);
+					gotoxy(45,15);
+					printf("%s",c1.chno);
+					gotoxy(45,16);
+					printf("%s",c1.carea);
+					gotoxy(45,17);
+					printf("%s",c1.ccity);
+					gotoxy(45,18);
+					printf("%s",c1.cstate);
+					gotoxy(45,19);
+					printf("%s",c1.cmobile);
+					gotoxy(45,20);
+					printf("%s",c1.ctel);
+					printf("\n Press any key : ");
+					getch();
+					break;
+
+				}
+				break;
+			}
+
+
+		}
+
+	}
+	fclose(fcust);
+ return opt;
+}
+
+int addinvo(opt)    // creating invoice
+{
+	long int recsize,i,j;
+	long int recsize2,recsize3,recsize4,rec5;
+	char save='y';
+	char choice=' ';
+	FILE *fpro;
+	FILE *fprot;
+	FILE *finvo;
+	FILE *finvodtls;
+	FILE *ftemp2,*fcust;
+	char procd[5],custid[5],sdate[11];
+	char ch;
+	int flag=0,count=0;
+
+
+	struct cust
+	{
+		char cid[5];
+		char cname[20];
+		char chno[5];
+		char carea[10];
+		char ccity[10];
+		char cstate[10];
+		char cmobile[11];
+		char  ctel[12];
+	};
+
+	struct date cdate;
+
+	struct pro
+	{
+		char pcode[10];
+		char pname[20];
+		float pprice;
+		int qty;
+	};
+
+	struct prot
+	{
+		char pcode[10];
+		char pname[20];
+		float pprice;
+		int qty;
+	};
+	struct ftemp2
+	{
+		char pcode[10];
+		char pname[20];
+		float pprice;
+		int qty;
+	};
+
+
+	struct invo
+	{
+		int invocd;
+		char date[11];
+		float total;
+		char custid[5];
+		char sdate[11];
+	};
+
+	struct invodtls
+	{
+		int invocd_d;
+		char pcode_d[5];
+		int qty_d;
+		float price_d;
+		float cost_d;
+	};
+
+	struct temp
+	{
+	  char tpcode[5];
+	  char tpname[20];
+	  int tqty;
+	  float tprice;
+	  float tcost;
+	  float ttotal;
+	};
+
+	struct invo i1;
+	struct pro p1;
+	struct prot pt1;
+	struct temp t[100];
+	struct invodtls id1;
+	struct cust c1;
+	getdate(&cdate);
+
+
+	fpro=fopen("product.txt","rb+");
+	fprot=fopen("product2.txt","rb+");
+	finvo=fopen("invoice.txt","ab+");
+	finvodtls=fopen("invoice_details.txt","ab+");
+	ftemp2=fopen("temp.txt","wb+");
+	fcust=fopen("customer.txt","r+");
+
+
+	if(fprot==NULL)
+	{
+		printf("File does not exits");
+	}
+
+	recsize=sizeof(p1);
+	recsize2=sizeof(i1);
+	recsize3=sizeof(id1);
+	recsize4=sizeof(pt1);
+	rec5=sizeof(c1);
+	while(choice != 'E')
+	{
+		clrscr();
+		ptsheader();
+		printf("\n\nProduct Code     Product Name       Product Price	  Quantity Avail.");
+		printf("\n=============================================================================");
+		rewind(fprot);
+		while(fread(&pt1,recsize4,1,fprot)==1)
+		{
+			printf("\n%-20s %-20s %-6.2f		 %d",pt1.pcode,pt1.pname,pt1.pprice,pt1.qty);
+		}
+		fflush(stdin);
+		gotoxy(5,25);
+		printf("C - Create | E - Exit :  ");
+		gotoxy(60,45);
+		scanf("%c",&choice);
+		if (choice=='C'|| choice=='c')              // creating invoice
+		{
+
+			i=1;
+			t[i].ttotal=0;
+			t[0].ttotal=0;
+			save='y';
+			while(save=='y' || save=='Y')
+			{
+				clrscr();
+				ptsheader();
+				printf("\n\nProduct Code     Product Name       Product Price		Quantity Avail.");
+				printf("\n===============================================================================");
+				rewind(fprot);
+				while(fread(&pt1,recsize4,1,fprot)==1)
+				{
+					printf("\n%-20s %-20s %-6.2f		 %d",pt1.pcode,pt1.pname,pt1.pprice,pt1.qty);
+				}
+				gotoxy(5,25);
+				printf("C - Create | E - Exit :  ");
+				gotoxy(30,22);
+				printf("\nProduct Code : ");
+				fflush(stdin);
+				gets(procd);
+				fflush(stdin);
+				rewind(fprot);
+
+				while(1)
+					{
+						fread(&pt1,recsize4,1,fprot);
+
+						if (feof(fprot))
+						break;
+
+						if(strcmp(procd,pt1.pcode)==0)
+						{
+							strcpy(t[i].tpcode,pt1.pcode);
+							strcpy(t[i].tpname,pt1.pname);
+							t[i].tprice=pt1.pprice;
+							gotoxy(30,23);
+							printf("\t\tEnter Qty : ");
+							scanf("%d",&t[i].tqty);
+
+							if(pt1.qty-t[i].tqty>=0)
+							{
+								flag=0;
+								t[i].tcost=(t[i].tqty)*(pt1.pprice);
+								t[i].ttotal=t[i-1].ttotal + t[i].tcost;
+								pt1.qty=pt1.qty-t[i].tqty;
+								fseek(fprot,-recsize,SEEK_CUR);
+								fwrite(&pt1,recsize4,1,fprot);
+							}
+							else
+							{
+								flag=1;
+								printf("Out of Stock");
+								getch();
+								break;
+							}
+
+							break;
+						}
+					}
+					if(flag==1)
+					continue;
+					clrscr();
+					gotoxy(30,2);
+					printf(" ____Invoice Details____");
+					gotoxy(5,4);
+					printf("\nCode	   Name	     Price	  Quantity	   Prod.Total	 Inv.Total ");
+
+					for(j=1; j<=i; j++)
+					{
+						printf("\n%3s%15s%10.2f%10d%22.2f%15.2f",t[j].tpcode,t[j].tpname,t[j].tprice,t[j].tqty,t[j].tcost,t[j].ttotal);
+					}
+					i++;
+					gotoxy(3,22);
+					printf("\Add More Products (Y/N) ?");
+					gotoxy(3,24);
+					printf("V - View Customer List");
+					save=getch();
+				}
+				gotoxy(3,23);
+				printf("Enter Customer ID : ");
+				gotoxy(45,49);
+				fflush(stdin);
+				gets(custid);
+				fflush(stdin);
+				if(strcmp(custid,"V")==0)
+				{
+					clrscr();
+					ptsheader();
+					printf("\n\tID		Name		Mobile		Telephone ");
+					printf("\n\t=============================================================");
+					rewind(fcust);
+					while(fread(&c1,rec5,1,fcust)==1)
+					{
+						printf("\n\t%-15s %-15s %-17s %-15s",c1.cid,c1.cname,c1.cmobile,c1.ctel);
+
+					}
+					gotoxy(3,22);
+					printf("Enter Customer ID : ");
+					fflush(stdin);
+					scanf("%s",&custid);
+					fflush(stdin);
+
+				}
+				gotoxy(3,22);
+				printf("Enter Shipping Date (dd/mm/yyyy) : ");
+				scanf("%s",&sdate);
+
+				gotoxy(3,23);
+				printf("Save (Y/N) ? : ");
+				save=getch();
+				if(save=='y' || save=='Y')
+				{
+					rewind(finvo);
+					while(fread(&i1,recsize2,1,finvo)==1)
+					{
+						count++;
+					}
+					sprintf(i1.date,"%d/%d/%d",cdate.da_day,cdate.da_mon,cdate.da_year);
+					strcpy(i1.sdate,sdate);
+					i1.invocd=++count;
+					i1.total=t[i-1].ttotal;
+					strcpy(i1.custid,custid);
+					fwrite(&i1,recsize2,1,finvo);
+					rewind(fprot);
+					while(1)
+					{
+						fread(&pt1,recsize3,1,fprot);
+
+						if(feof(fprot))
+						break;
+
+						fwrite(&pt1,recsize3,1,ftemp2);
+					}
+					fclose(fpro);
+					fclose(ftemp2);
+					remove("product.txt");
+					rename("temp.txt","product.txt");
+					fpro=fopen("product.txt","rb+");
+
+
+
+					for(j=1; j<i; j++)     // display invoice details(while adding)
+					{
+						id1.invocd_d=count;
+						strcpy(id1.pcode_d,t[j].tpcode);
+						id1.qty_d=t[j].tqty;
+						id1.price_d=t[j].tprice;
+						id1.cost_d=t[j].tcost;
+						fwrite(&id1,recsize3,1,finvodtls);
+
+					}
+
+				}
+				else
+				{
+					rewind(fpro);
+
+					while(1)
+					{
+						fread(&p1,recsize,1,fpro);
+						if(feof(fpro))
+						break;
+
+						fwrite(&p1,recsize,1,ftemp2);
+					}
+					fclose(ftemp2);
+					fclose(fprot);
+					remove("product2.txt");
+					rename("temp.txt","product2.txt");
+					fprot=fopen("product2.txt","rb+");
+
+
+				}
+
+			}
+
+	}
+	if(choice=='E'|| choice=='e')
+	fflush(stdin);
+	fclose(fpro);
+	fclose(fprot);
+	fclose(finvo);
+	fclose(ftemp2);
+	fclose(finvodtls);
+	opt=ptsinvoice();
+	cntlinvoice(opt);
+	return opt;
+
+}
+
+int mnginvo(opt)   // managing invoice details
+{
+	long int recsize;
+	long int recsize2,rec3,rec4;
+   //	char save='y';
+
+	char choice=' ';
+	FILE *finvo;
+	FILE *finvodtls,*fcust,*fprot,*tempinvod,*dtemp;
+	int invono,i,j,flag=0,tqty;
+	char ch,save='y',procd[5];
+	float total;
+
+
+
+	struct pro
+	{
+		char pcode[10];
+		char pname[20];
+		float pprice;
+		int qty;
+	};
+
+	struct temp
+	{
+	  char tpcode[5];
+	  char tpname[20];
+	  int tqty;
+	  float tprice;
+	  float tcost;
+	  float ttotal;
+	};
+
+
+	struct invo
+	{
+		int invocd;
+		char date[11];
+		float total;
+		char custid[5];
+		char sdate[11];
+	};
+
+	struct invodtls
+	{
+		int invocd_d;
+		char pcode_d[5];
+		int qty_d;
+		float price_d;
+		float cost_d;
+	};
+
+	struct cust
+	{
+		char cid[5];
+		char cname[20];
+		char chno[5];
+		char carea[10];
+		char ccity[10];
+		char cstate[10];
+		char cmobile[11];
+		char  ctel[12];
+	};
+
+	struct cust c1;
+	struct invo i1;
+	struct invodtls id1;
+	struct pro p1;
+	struct temp t[50];
+
+	finvo=fopen("invoice.txt","rb+");
+	finvodtls=fopen("invoice_details.txt","rb+");
+	fcust=fopen("customer.txt","rb+");
+	fprot=fopen("product2.txt","rb+");
+	tempinvod=fopen("tempinvod.txt","wb+");
+
+	if(finvo==NULL)
+	{
+		printf("File does not exits");
+	}
+
+	recsize=sizeof(i1);
+	recsize2=sizeof(id1);
+	rec3=sizeof(c1);
+	rec4=sizeof(p1);
+	while(choice != 'E')
+	{
+		clrscr();
+		ptsheader();
+		rewind(finvo);
+		printf("\n\nInvoice No	 Date	      Amount	   Cutomer	    Ship. Date");
+		printf("\n========================================================================");
+		while(fread(&i1,recsize,1,finvo)==1)
+		{
+			printf("\n%-15d%-15s%-15.2f%-15s%-15s",i1.invocd,i1.date,i1.total,i1.custid,i1.sdate);
+		}
+		gotoxy(5,25);
+		printf("V - View | U - Update | D - Delete | C - Customer | E - Exit :  ");
+		gotoxy(78,45);
+		scanf("%c",&choice);
+		if(choice=='V'|| choice=='v')        // view invoice details
+		{
+			printf("Enter Invoice No : ");
+			scanf("%d",&invono);
+			rewind(finvo);
+			while(1)
+				{
+					  fread(&i1,recsize,1,finvo);
+
+					  if (feof(finvo))
+					  break;
+					  if(invono==i1.invocd)
+					  {
+
+							clrscr();
+							ptsheader();
+							printf("\n\nInvoice No : %d\t\t\t Date : %s",i1.invocd,i1.date);
+							printf("\nCustomer ID: %s\t\t Ship. Date:%s",i1.custid,i1.sdate);
+							printf("\n\nInvoice Details");
+							printf("\n\n Code		Quantity	 	 Price	  	 Cost");
+							printf("\n==================================================================");
+							total=i1.total;
+							rewind(finvodtls);
+							while(1)
+							{
+								fread(&id1,recsize2,1,finvodtls);
+								if (feof(finvodtls))
+								break;
+
+								if(invono==id1.invocd_d)
+								{
+
+										printf("\n%-20s%-20d%-10.2f%-10.2f",id1.pcode_d,id1.qty_d,id1.price_d,id1.cost_d);
+
+								}
+							}
+					  }
+
+				}
+				printf("\n==================================================================");
+				printf("\nTotal : %-20.2f ",total);
+				gotoxy(5,25);
+				printf("A - Add | U - Update | D - Delete | E - Exit :  ");
+				save=getch();
+				if(save=='A' || save=='a')// adding products to existing invoice
+				{
+					i=1;
+					t[i].ttotal=0;
+					t[0].ttotal=0;
+					save='y';
+					while(save=='y' || save=='Y')
+					{
+						clrscr();
+						ptsheader();
+						printf("\n\nProduct Code     Product Name       Product Price		Quantity Avail.");
+						printf("\n===============================================================================");
+						rewind(fprot);
+						while(fread(&p1,rec4,1,fprot)==1)
+						{
+							printf("\n%-20s %-20s %-6.2f		 %d",p1.pcode,p1.pname,p1.pprice,p1.qty);
+						}
+						gotoxy(30,22);
+						printf("\nProduct Code : ");
+						fflush(stdin);
+						gets(procd);
+						fflush(stdin);
+						rewind(fprot);
+						while(1)
+						{
+							fread(&p1,rec4,1,fprot);
+
+							if (feof(fprot))
+							break;
+
+							if(strcmp(procd,p1.pcode)==0)
+							{
+								strcpy(t[i].tpcode,p1.pcode);
+								strcpy(t[i].tpname,p1.pname);
+								t[i].tprice=p1.pprice;
+								gotoxy(30,23);
+								printf("\t\tEnter Qty : ");
+								scanf("%d",&t[i].tqty);
+
+								if(p1.qty-t[i].tqty>=0)
+								{
+									flag=0;
+									t[i].tcost=(t[i].tqty)*(p1.pprice);
+									t[i].ttotal=t[i-1].ttotal + t[i].tcost;
+									p1.qty=p1.qty-t[i].tqty;
+									fseek(fprot,-rec4,SEEK_CUR);
+									fwrite(&p1,rec4,1,fprot);
+								}
+								else
+								{
+									flag=1;
+									printf("Out of Stock");
+									getch();
+									break;
+								}
+
+								break;
+							}
+						}
+						if(flag==1)
+						continue;
+						clrscr();
+						gotoxy(30,2);
+						printf(" ____Invoice Details____");
+						gotoxy(5,4);
+						printf("\nCode	   Name	     Price	  Quantity	   Prod.Total	 Inv.Total ");
+
+						for(j=1; j<=i; j++)
+						{
+							printf("\n%3s%15s%10.2f%10d%22.2f%15.2f",t[j].tpcode,t[j].tpname,t[j].tprice,t[j].tqty,t[j].tcost,t[j].ttotal);
+						}
+						i++;
+						gotoxy(3,22);
+						printf("\Add More Products (Y/N) ?");
+						save=getch();
+					}
+					printf("Save (Y/N) ? : ");
+					save=getch();
+					if(save=='y' || save=='Y')
+					{
+						i1.total+=t[i-1].ttotal;
+						fseek(finvo,-recsize,SEEK_CUR);
+						fwrite(&i1,recsize,1,finvo);
+
+						for(j=1; j<i; j++)
+						{
+							id1.invocd_d=i1.invocd;
+							strcpy(id1.pcode_d,t[j].tpcode);
+							id1.qty_d=t[j].tqty;
+							id1.price_d=t[j].tprice;
+							id1.cost_d=t[j].tcost;
+							fwrite(&id1,recsize2,1,finvodtls);
+
+						}
+						printf("Saved");
+						getch();
+					}
+
+				 }
+				 else if(save=='D' || save=='d') // deleting items from existing invoice
+				 {
+
+					printf("\tProduct Code : ");
+					scanf("%s",&procd);
+					rewind(finvodtls);
+					while(fread(&id1,recsize2,1,finvodtls)==1)
+					{
+						if(feof(finvodtls))
+						break;
+						if((strcmp(procd,id1.pcode_d)!=0)||(id1.invocd_d!=invono))
+						{
+							fwrite(&id1,recsize2,1,tempinvod);
+						}
+						else
+						{
+							while(fread(&p1,rec4,1,fprot)==1)
+							{
+								if(feof(fprot))
+								break;
+
+								if(strcmp(procd,p1.pcode)==0)
+								{
+									p1.qty=p1.qty + id1.qty_d;
+									fseek(fprot,-rec4,SEEK_CUR);
+									fwrite(&p1,rec4,1,fprot);
+								}
+							}
+							i1.total=i1.total - id1.cost_d;
+							fseek(finvo,-recsize,SEEK_CUR);
+							fwrite(&i1,recsize,1,finvo);
+						}
+					}
+					fclose(tempinvod);
+				   //	fclose(finvodtls);
+					remove("invoice_details.txt");
+					rename("tempinvod.txt","invoice_details.txt");
+					finvodtls=fopen("invoice_details.txt","rb+");
+				}
+				else if(save=='U' || save=='u') // Updating products from existing invoice
+				{
+					printf("\tProduct Code : ");
+					scanf("%s",&procd);
+					rewind(finvodtls);
+
+					while(fread(&id1,recsize2,1,finvodtls)==1)
+					{
+						if(feof(finvodtls))
+						break;
+						if((strcmp(procd,id1.pcode_d)==0)&&(id1.invocd_d==invono))
+						{
+
+							tqty=id1.qty_d;
+							clrscr();
+							ptsheader();
+							printf("\n\n\t\t\t____Update Invoice Details____");
+							gotoxy(15,14);
+							printf("Invoice No          :%d ",id1.invocd_d);
+							gotoxy(15,16);
+							printf("Code          	  :%s ",id1.pcode_d);
+							gotoxy(15,18);
+							printf("Quantity         	  :%d ",id1.qty_d);
+							gotoxy(15,20);
+							printf("Price    		  :%-6.2f ",id1.price_d);
+							gotoxy(15,22);
+							printf("Prod. Total          :%-6.2f ",id1.cost_d);
+							gotoxy(55,14);
+							printf("%d",id1.invocd_d);
+							gotoxy(55,16);
+							printf("%s",id1.pcode_d);
+							gotoxy(55,18);
+							scanf("%d",&id1.qty_d);
+							gotoxy(55,20);
+							printf("%-6.2f",id1.price_d);
+							gotoxy(55,22);
+							printf("%-6.2f",id1.cost_d);
+							gotoxy(35,24);
+							printf("Save (Y/N) : ");
+							gotoxy(47,24);
+							save=getch();
+							if((save=='y' )||( save=='Y'))
+							{
+
+
+								i1.total=i1.total - id1.cost_d;
+
+								id1.cost_d=(id1.qty_d * id1.price_d);
+								i1.total +=id1.cost_d;
+
+								fseek(finvo,-recsize,SEEK_CUR);
+								fwrite(&i1,recsize,1,finvo);
+
+								fseek(finvodtls,-recsize2,SEEK_CUR);
+								fwrite(&id1,recsize2,1,finvodtls);
+
+								rewind(fprot);
+								while(fread(&p1,rec4,1,fprot)==1)
+								{
+									if(feof(fprot))
+									break;
+
+									if(strcmp(procd,p1.pcode)==0)
+									{
+
+										p1.qty+=tqty;
+										p1.qty-=id1.qty_d;
+										fseek(fprot,-rec4,SEEK_CUR);
+										fwrite(&p1,rec4,1,fprot);
+
+									}
+								}
+
+							}
+						}
+					}
+				}
+		}
+		else if(choice=='U' || choice=='u') // updating invoice details
+		{
+			printf("Enter Invoice No : ");
+			scanf("%d",&invono);
+			rewind(finvo);
+			while(1)
+				{
+					  fread(&i1,recsize,1,finvo);
+
+					  if (feof(finvo))
+					  break;
+					  if(invono==i1.invocd)
+					  {
+
+							clrscr();
+							ptsheader();
+							printf("\n\n\t\t\t____Update Invoice Details____");
+							gotoxy(15,14);
+							printf("Invoice No          :%d ",i1.invocd);
+							gotoxy(15,16);
+							printf("Date          	  :%s ",i1.date);
+							gotoxy(15,18);
+							printf("Total         	  :%6.2f ",i1.total);
+							gotoxy(15,20);
+							printf("Customer ID    	  :%s ",i1.custid);
+							gotoxy(15,22);
+							printf("Ship. Date          :%s ",i1.sdate);
+
+							gotoxy(55,14);
+							fflush(stdin);
+							printf("%d",i1.invocd);
+							fflush(stdin);
+							gotoxy(55,16);
+							printf("%s",i1.date);
+							fflush(stdin);
+							gotoxy(55,18);
+							printf("%-6.2f",i1.total);
+							fflush(stdin);
+							gotoxy(55,20);
+							scanf("%s",&i1.custid);
+							gotoxy(55,22);
+							scanf("%s",i1.sdate);
+
+							gotoxy(35,24);
+							printf("Save (Y/N) : ");
+							gotoxy(47,24);
+							save=getch();
+							if((save=='y' )||( save=='Y'))
+							{
+								fseek(finvo,-recsize,SEEK_CUR);
+								fwrite(&i1,recsize,1,finvo);
+							}
+
+						}
+				}
+		}
+		else if (choice=='C' || choice=='c') // view customer list
+		{
+			clrscr();
+			ptsheader();
+			printf("\n\tID		Name		Mobile		Telephone ");
+			printf("\n\t=============================================================");
+			rewind(fcust);
+			while(fread(&c1,rec3,1,fcust)==1)
+			{
+				printf("\n\t%-15s %-15s %-17s %-15s",c1.cid,c1.cname,c1.cmobile,c1.ctel);
+
+			}
+			gotoxy(3,24);
+			printf("Press any key to exit...");
+			getch();
+		}
+		else if(choice=='D'|| choice=='d')
+		{
+			dtemp=fopen("dtemp.txt","w+");
+			printf("Enter Invoice No : ");
+			scanf("%d",&invono);
+			rewind(finvo);
+			while(1)
+				{
+					  fread(&i1,recsize,1,finvo);
+
+					  if (feof(finvo))
+					  break;
+					  if(invono!=i1.invocd)
+					  {
+							fwrite(&i1,recsize,1,dtemp);
+					  }
+
+				}
+				fclose(dtemp);
+				fclose(finvo);
+				remove("invoice.txt");
+				rename("dtemp.txt","invoice.txt");
+				finvo=fopen("invoice.txt","rb+");
+
+		}
+		if(choice=='E' || choice=='e')
+		{
+			fclose(finvo);
+			fclose(finvodtls);
+			fclose(fcust);
+			fclose(fprot);
+			opt=ptsinvoice();
+			cntlinvoice(opt);
+		}
+	}
+	fclose(finvo);
+	fclose(fcust);
+	fclose(fprot);
+	fclose(finvodtls);
+	return 0;
+}
+
+
+
+
